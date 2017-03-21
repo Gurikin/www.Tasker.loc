@@ -1,0 +1,50 @@
+<?php
+	/**
+	* 
+  * @author Banchikov Igor Vladimirovich
+  * @todo The class describes the nature of the employee
+  * @property integer $id (autoincrement)
+  * @property string $firstName The first name of employee
+  * @property string $secondName The second name of employee
+  * @property string $middleName The middle name of employee
+  * @property string $jobTitle The title of the employee post
+  * @property boolean $administrator Is the employee have root rights
+  * @property boolean $activeJob Active employee?
+  * 
+  */
+	class User
+	{
+		public $id; //integer AutoIncrement
+		public $firstName = '';
+		public $secondName = '';
+		public $middleName = '';
+		public $jobTitle = '';
+		public $login = '';
+		public $password = '';
+		public $administrator = 0;
+		//public $numOfActTasks = 0;
+		public $activeJob = 1;
+		
+    /**
+    * @todo The method assigns the value of construct parameters to the class properties
+    */
+		function __construct ($firstName,
+							  $secondName,
+							  $middleName,
+							  $jobTitle,
+							  $login,
+							  $password,
+							  $administrator = 0,
+							  $activeJob = 1)
+		{
+			$this->firstName  	 = clearData($firstName);
+			$this->secondName 	 = clearData($secondName);
+			$this->middleName 	 = clearData($middleName);
+			$this->jobTitle   	 = clearData($jobTitle);
+			$this->login	  	 = clearData($login);
+			$this->password   	 = md5(trim($password));
+			$this->administrator = clearData($administrator,'i');
+			$this->activeJob	 = clearData($activeJob,'i');
+		}
+	}
+?>
