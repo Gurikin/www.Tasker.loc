@@ -72,7 +72,7 @@ class UserTaskController extends DBConnect {
      */
     public function selectSingleUser($userId) {
         try {
-            $query = "SELECT firstName, secondName FROM " . $this->activeUserView . " WHERE user_id=" . $userId;
+            $query = "SELECT user_id, firstName, secondName FROM " . $this->activeUserView . " WHERE user_id=" . $userId;
             $dbh = parent::getDbh();
             $resultSelect = $dbh->query($query);
             if ($resultSelect === false) {
@@ -83,13 +83,14 @@ class UserTaskController extends DBConnect {
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }
-        return $name;
+        return $row;//$name;
     }
 
     public function addUserTask($user, $task) {
         $insQuery = "INSERT INTO user_task (userId, taskId) 
 			VALUES ('$user', '$task')";
-        $insResult = mysql_query($insQuery) or dieSql();
+        $dbh = parent::getDbh();
+        $insResult = $dbh->query($insQuery);
         if ($insResult != NULL)
             return true;
         else

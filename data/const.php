@@ -9,11 +9,13 @@ set_include_path(get_include_path()
 define('USER_DEFAULT_FILE', 'user_default.php');
 define('USER_ROLE_FILE', 'user_role.php');
 define('USER_LIST_FILE', 'user_list.php');
+define('USER_SINGLE_INFO', 'user_single_info.php');
 define('USER_ADD_FILE', 'user_add.php');
 define('USER_CREATE_FILE', 'user_create.php');
 define('TASK_LIST_FILE', 'task_list.php');
 define('TASK_CREATE_FILE', 'task_create.php');
 define('USER_CLASS', 'user_class.php');
+
 
 
 /* Текстовая база данных пользователей */

@@ -37,7 +37,11 @@ class FrontController {
 				if($rc->hasMethod($this->getAction())) {
 					$controller = $rc->newInstance();
 					$method = $rc->getMethod($this->getAction());
-					$method->invoke($controller);
+                                        if (!empty($this->_params)) {
+                                            $method->invokeArgs($controller, $this->_params);
+                                        } else {
+                                            $method->invoke($controller);
+                                        }					
 				} else {
 					throw new Exception("Action");
 				}

@@ -52,10 +52,17 @@
                     break;
                 case 'users' :
                     $taskUsers = '';
+                    echo "<td style='white-space: nowrap;'>";
                     foreach ($taskField as $user) {
-                        $taskUsers .= $user;
+                        if (!empty($user)) {
+                            printf("<a href='/user/selectUserConst/id/%s'>%s %s<br></a>", $user["user_id"], $user["firstName"], $user["secondName"]);
+                        }
+                        //echo "<a href='/user/selectSingleUser/id/".$user["user_id"]."'>".$user["firstName"].$user["secondName"]. "</a>";
+                        
+                        //$taskUsers .= $user;
                     }
-                    echo "<td style='white-space: nowrap;'>". $taskUsers . "</td>";
+                    echo "</td>";
+                    //echo "<td style='white-space: nowrap;'><a href='/user/selectSingleUser/' ". $taskUsers . "</td>";
                 default: break;
             }
         }

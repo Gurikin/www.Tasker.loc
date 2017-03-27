@@ -9,7 +9,7 @@
 /**
  * Description of UserController
  *
- * @author gurik_000
+ * @author BIV
  */
 class UserController extends DBConnect implements IController {
 
@@ -20,12 +20,14 @@ class UserController extends DBConnect implements IController {
     private $_params = array();
     private $_model;
     private $_userTaskController;
+    //private $_user;
 
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
         $this->_model = new FileModel();
         $this->_userTaskController = new UserTaskController;
+        //$this->_user = new User();
         parent::__construct();
     }
     
@@ -66,19 +68,30 @@ class UserController extends DBConnect implements IController {
 
     /**
      * Этот метод возвращает имя и фамилию сотрудника по его id
-
+     */
       public function selectUserConstAction($userId) {
-      $query = "SELECT firstName, secondName FROM " . $this->table . " WHERE id=" . $userId;
-
-      $resultSelect = mysql_query($query) or dieSql();
-      if (!$resultSelect)
-      return false;
-      $row = mysql_fetch_assoc($resultSelect);
-
-      $name = $row["secondName"] . " " . $row["firstName"];
-
-      return $name;
-      } */
+      $query = "SELECT firstName, secondName, middleName, jobTitle, phone FROM " . $this->table . " WHERE id=" . $userId;
+      $dbh = parent::getDbh();
+      $resultSelect = $dbh->query($query);
+      if ($resultSelect === false) {
+        throw new PDOException;
+      }
+      $i = 0;
+      $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
+      //while () {
+        //$row['task'] = $this->_userTaskController->selectUserTasks($row['user_id']);
+      //  $tableView = $row;
+      //  $i++;
+      //}
+      
+      
+      //$name = $row["secondName"] . " " . $row["firstName"];
+      $this->_model->userList = $row;
+      $output = $this->_model->render(USER_SINGLE_INFO);
+      $this->_fc->setBody($output);
+      //return $name;
+    }
+      
     public function addAction() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {    

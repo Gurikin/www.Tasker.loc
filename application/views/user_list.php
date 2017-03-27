@@ -26,9 +26,18 @@
     for ($i = 0; $i < count($this->userList); $i++) {
         echo "<tr>";
         foreach ($this->userList[$i] as $userCol => $userField) {
-
-            if (!is_array($userField) && $userCol != 'user_id') {
-                echo "<td>$userField</td>";
+            
+            if (!is_array($userField)) {// && $userCol != 'user_id') {
+                switch ($userCol) {
+                    case 'user_id': break;
+                    case 'secondName':
+                        printf("<td><a href='/user/selectUserConst/id/%s'>%s</a></td>", $this->userList[$i]['user_id'], $userField);
+                        break;
+                    default:
+                        echo "<td>$userField</td>";
+                        break;
+                }
+                //echo "<td>$userField</td>";
             } else {
                 $userTasksCount = count($userField);
             }

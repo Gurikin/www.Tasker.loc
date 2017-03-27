@@ -1,5 +1,5 @@
 <?php
-    include_once '/application/models/User_Class.php';
+    include_once './application/models/User_Class.php';
 ?>
 
 <form action="./add" method="post">
