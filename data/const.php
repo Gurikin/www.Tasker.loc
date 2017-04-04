@@ -6,6 +6,7 @@ set_include_path(get_include_path()
         . PATH_SEPARATOR . 'application/views');
 
 /* Имена файлов: views */
+define('USER_AUTH_FILE', 'user_signIn.php');
 define('USER_DEFAULT_FILE', 'user_default.php');
 define('USER_ROLE_FILE', 'user_role.php');
 define('USER_LIST_FILE', 'user_list.php');

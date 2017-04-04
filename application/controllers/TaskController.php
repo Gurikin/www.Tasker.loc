@@ -10,6 +10,7 @@ class TaskController extends DBConnect implements IController {
     private $_params = array();
     private $_model;
     private $_userTaskController;
+    private $_dbh;
 
     /**
      * Перегрузка методов для работы с БД
@@ -21,6 +22,7 @@ class TaskController extends DBConnect implements IController {
         $this->_model = new FileModel();
         parent::__construct();
         $this->_userTaskController = new UserTaskController();
+        $this->_dbh = parent::getDbh();
     }
 
     /**
@@ -30,8 +32,7 @@ class TaskController extends DBConnect implements IController {
     public function selectTaskAction($actTask = true) {
         $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE progress<100";
         try {
-            $dbh = parent::getDbh();
-            $resultSelect = $dbh->query($query);
+            $resultSelect = $this->_dbh->query($query);
             if ($resultSelect === false) {
                 throw new PDOException('Ошибка при выполнении запроса select task.<br>');
             }
@@ -78,8 +79,7 @@ class TaskController extends DBConnect implements IController {
                             '$progress',
                             '$description')";
         
-        $dbh = parent::getDbh();
-        $insResult = $dbh->query($insQuery);
+        $insResult = $this->_dbh->query($insQuery);
         if ($insResult === false) {
             throw new PDOException;
         }

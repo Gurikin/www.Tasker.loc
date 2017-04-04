@@ -20,6 +20,7 @@ class UserController extends DBConnect implements IController {
     private $_params = array();
     private $_model;
     private $_userTaskController;
+    private $_dbh;
     //private $_user;
 
     public function __construct() {
@@ -29,6 +30,7 @@ class UserController extends DBConnect implements IController {
         $this->_userTaskController = new UserTaskController;
         //$this->_user = new User();
         parent::__construct();
+        $this->_dbh = parent::getDbh();
     }
     
     public function registration($name, $pass){
@@ -47,8 +49,7 @@ class UserController extends DBConnect implements IController {
             } else {
                 $query = "SELECT * FROM " . $this->firedUserView . " LIMIT 0, 50";
             }
-            $dbh = parent::getDbh();
-            $resultSelect = $dbh->query($query);
+            $resultSelect = $this->_dbh->query($query);
             if ($resultSelect === false) {
                 throw new PDOException;
             }
@@ -70,9 +71,8 @@ class UserController extends DBConnect implements IController {
      * Этот метод возвращает имя и фамилию сотрудника по его id
      */
       public function selectUserConstAction($userId) {
-      $query = "SELECT firstName, secondName, middleName, jobTitle, phone FROM " . $this->table . " WHERE id=" . $userId;
-      $dbh = parent::getDbh();
-      $resultSelect = $dbh->query($query);
+      $query = "SELECT firstName, secondName, middleName, jobTitle, phone FROM " . $this->table . " WHERE id=$userId";// . $userId;
+      $resultSelect = $this->_dbh->query($query);
       if ($resultSelect === false) {
         throw new PDOException;
       }
@@ -114,8 +114,7 @@ class UserController extends DBConnect implements IController {
                                                 '$jobTitle',
                                                 '$password',
                                                 '$phone')";
-        $dbh = parent::getDbh();
-        $insResult = $dbh->query($insQuery);
+        $insResult = $this->_dbh->query($insQuery);
         if ($insResult === false) {
             throw new PDOException;
         }

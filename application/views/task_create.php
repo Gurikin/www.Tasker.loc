@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="endDate">Необходимо закончить к</label>
+            <label class="control-label col-md-2" for="endDate">Срок выполнения</label>
             <div class="col-md-10">
                 <input class="text-box single-line" id="endDate" onchange="validateInput();" name="endDate" type="date" />
                 <span id="errJT" value=""></span>
