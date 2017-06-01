@@ -2,8 +2,8 @@
 
 /**
  * @author Igor Banchikov
- * {@todo This is the main controller class,
- * which manages all requests to the server}
+ * @todo This is the main controller class,
+ * which manages all requests to the server
  * @use Singleton pattern
  */
 
@@ -19,7 +19,7 @@ class FrontController {
     static $_instance;
 
     /**
-     * @return object _instance - the instance of the FrontController
+     * @return object $_instance - the instance of the FrontController
      */
     public static function getInstance() {
         if (!(self::$_instance instanceof self))
@@ -28,11 +28,11 @@ class FrontController {
     }
 
     /**
-     * {@todo split the request uri to the array $split & put the values to the same vars
+     * @todo split the request uri to the array $split & put the values to the same vars
      * for example: uri = "www.tasker.loc/user/selectUserConst/id/2" in this case
      * the _controller var = 'userController'
      * the _action var = 'selectUserConstAction'
-     * the _params var = ('id','2')} 
+     * the _params var = ('id','2')
      */
     private function __construct() {
         $request = $_SERVER['REQUEST_URI'];
@@ -63,7 +63,7 @@ class FrontController {
     }
 
     /**
-     * @todo 
+     * Very simple routing method
      * @throws Exception on unsearch the controller class, action method or if the conrtoller class does not implements IController interface
      */
     public function route() {
@@ -79,12 +79,15 @@ class FrontController {
                         $method->invoke($controller);
                     }
                 } else {
+                  //TODO add the 404 redirection
                     throw new Exception("Action");
                 }
             } else {
+              //TODO add the 404 redirection
                 throw new Exception("Interface");
             }
         } else {
+          //TODO add the 404 redirection
             throw new Exception("Controller");
         }
     }
@@ -105,6 +108,10 @@ class FrontController {
         return $this->_body;
     }
 
+    /**
+     * @todo output the body string to the body of page
+     * @param string $body
+     */
     public function setBody($body) {
         $this->_body = $body;
     }

@@ -11,13 +11,16 @@
             Название
         </th>
         <th>
-            Дата назначения
+            Приступить к выполнению
         </th>
         <th>
             Дата начала выполнения
         </th>
         <th>
-            Дата завершения
+            Требуется закончить
+        </th>
+        <th>
+            Фактическая дата завершения
         </th>
         <th>
             Прогресс выполнения
@@ -28,7 +31,7 @@
         <th>
             Кому назначена
         </th>
-        <th></th>
+        <th>CRUD</th>
     </tr>
 
     <?php
@@ -38,6 +41,8 @@
             switch ($taskCol) {
                 case 'id' : break;
                 case 'taskTitle';
+                    echo "<td><a href='/task/singleTask/id/".$this->taskList[$i]['id']."'>".$taskField."</a></td>";
+                    break;
                 case 'progress';
                 case 'description';
                     echo "<td>$taskField</td>";
@@ -45,10 +50,14 @@
                 case 'orderDate';
                 case 'beginDate';
                 case 'endDate';
+                case 'factEndDate':
                     $timeStamp = strtotime($taskField);
-                    $date = date('d.m.Y', $timeStamp);
-                    //$time = date('H:i:s',$timeStamp);
-                    echo "<td>$date</td>";
+                    if ($timeStamp != 0) {
+                        $date = date('d.m.Y', $timeStamp);
+                        echo "<td>$date</td>";
+                    } else {
+                        echo "<td></td>";
+                    }                    
                     break;
                 case 'users' :
                     $taskUsers = '';
@@ -57,13 +66,9 @@
                         if (!empty($user)) {
                             printf("<a href='/user/selectUserConst/id/%s'>%s %s<br></a>", $user["user_id"], $user["firstName"], $user["secondName"]);
                         }
-                        //echo "<a href='/user/selectSingleUser/id/".$user["user_id"]."'>".$user["firstName"].$user["secondName"]. "</a>";
-                        
-                        //$taskUsers .= $user;
                     }
                     echo "</td>";
-                    //echo "<td style='white-space: nowrap;'><a href='/user/selectSingleUser/' ". $taskUsers . "</td>";
-                default: break;
+                default: echo"<td></td>"; break;
             }
         }
         echo "</tr>";

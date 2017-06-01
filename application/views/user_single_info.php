@@ -36,8 +36,34 @@
 
             <dd><?=$this->userList['phone']?></dd>
             <dt>Назначенные задания</dt>
-            <!--<dd>
+            <dd>
                 <table class="table">
+                <tr>
+                    <th>Описание</th>
+                    <th>Дата назначения</th>
+                    <th>Закончить</th>
+                    <th>Прогресс</th>
+                </tr>
+                <?php
+                    foreach ($this->userList['task'] as $task) {
+                       echo "<tr>"
+                            . "<td>"
+                               . $task['taskTitle']
+                            . "</td>"
+                            . "<td>"
+                               . $task['orderDate']
+                            . "</td>"
+                            . "<td>"
+                               . $task['endDate']
+                            . "</td>"
+                            . "<td>"
+                               . $task['progress']
+                            . "</td>"
+                            ."</tr>";
+                    }
+                ?>
+                </table>
+                <!--<table class="table">
                     <tr>
                         <th>Описание назначенных задач</th>
                         <th>Дата назначения</th>
@@ -53,12 +79,10 @@
                             </td>
                         </tr>
                     }
-                </table>
-            </dd>-->
+                </table>-->
+            </dd>
         </dl>
     </div>
-<!--<form action="./add" method="post">
-</form>-->
 
 <div>
     <!--<a href="/user/selectUser">Вернуться к списку</a>-->

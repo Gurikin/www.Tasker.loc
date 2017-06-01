@@ -3,8 +3,11 @@ include_once($_SERVER["DOCUMENT_ROOT"].'/data/const.php');
 
 /* Автозагрузчик классов */
 function __autoload($class){
-	require_once($class.'.php');
+	//echo "<h1>$class</h1>";
+	require_once($class.'.php');	
 }
+
+session_start();
 
 /* Инициализация и запуск FrontController */
 $front = FrontController::getInstance();

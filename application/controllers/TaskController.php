@@ -1,16 +1,24 @@
 <?php
 
 /**
- * Класс-контроллер для сущности Task
+ * This controller manage the tasks
+ *
+ * @author Igor Banchikov
  */
 class TaskController extends DBConnect implements IController {
 
+    /**
+     * @var string table - using table in db
+     * @var object $_fc instance of FrontController class
+     * @var object $_model instance of FileModel class
+     * @var object $_dbh instance of DBConnect class
+     * @var object $_userTaskContoller instance of UserTaskController class. Need for the data selecting
+     */
     public $table = 'task';
     private $_fc;
-    private $_params = array();
     private $_model;
-    private $_userTaskController;
     private $_dbh;
+    private $_userTaskController;
 
     /**
      * Перегрузка методов для работы с БД
@@ -26,11 +34,32 @@ class TaskController extends DBConnect implements IController {
     }
 
     /**
-     * Выборка активных или завершенных задач
-     * Метод возвращает результат в форме двумерного массива
+     * @todo Выборка активных или завершенных задач
+     * @param boolean $actTask - select the active of complete tasks
+     * @return Метод возвращает результат в форме двумерного массива
+     * @throws PDOException
+     * @return array like this array (size=5)
+     * 1 => 
+     * array (size=9)
+     * 'id' => string '1' (length=1)
+     * 'taskTitle' => string 'Первая задача' (length=25)
+     * 'orderDate' => string '2016-04-03 00:00:00' (length=19)
+     * 'beginDate' => string '2016-04-03 00:00:00' (length=19)
+     * 'endDate' => string '2016-04-03 00:00:00' (length=19)
+     * 'factEndDate' => null
+     * 'progress' => string '0' (length=1)
+     * 'description' => string 'Это первая задача' (length=32)
+     * 'users' => 
+     *   array (size=2)
+     *     0 => 
+     *       array (size=3)
+     *         ...
+     *     1 => 
+     *       array (size=3)
+     *         ...
      */
     public function selectTaskAction($actTask = true) {
-        $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE progress<100";
+        $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE active=" . $actTask;
         try {
             $resultSelect = $this->_dbh->query($query);
             if ($resultSelect === false) {
@@ -49,11 +78,35 @@ class TaskController extends DBConnect implements IController {
         $output = $this->_model->render(TASK_LIST_FILE);
         $this->_fc->setBody($output);
     }
-
+    
     /**
-     * Метод для добавления новой задачи в БД
-     * При успешном добавлении возвращает true
-     * в противном случае - false
+     * @todo this method select single task by the id
+     * @param int $taskId
+     * @return array of the task data (see selectTaskAction method)
+     * @throws PDOException
+     */
+    public function singleTaskAction($taskId) {
+        $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE id=" . $taskId;
+        try {
+            $resultSelect = $this->_dbh->query($query);
+            if ($resultSelect === false) {
+                throw new PDOException('Ошибка при выполнении запроса singleTask.<br>');
+            }
+            $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
+            $row['users'] = $this->_userTaskController->selectTaskUsers($row['id']);
+            $tableView = $row;
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+        $this->_model->taskList = $tableView;
+        $output = $this->_model->render(SINGLE_TASK_FILE);
+        $this->_fc->setBody($output);
+    }
+    
+    /**
+     * @todo Метод для добавления новой задачи в БД
+     * @return boolean - true if OK, false if task was not add to DB
+     * @throws PDOException
      */
     public function addAction() {
         
@@ -88,7 +141,20 @@ class TaskController extends DBConnect implements IController {
         }
         header ("Location: /task/selectTask");
     }
+    
+    /**
+     * @todo select the tasks assigned for current user
+     */
+    public function criticalTaskAction () {
+        $tableView['userTasks'] = $this->_userTaskController->selectUserTasks($_SESSION["userId"]);
+        $this->_model->taskList = $tableView['userTasks'];
+        $output = $this->_model->render(CRITICAL_TASK_LIST_FILE);
+        $this->_fc->setBody($output);
+    }
 
+    /**
+     * @todo this method output the page for the add task to the DB
+     */
     public function createAction() {
         $output = $this->_model->render(TASK_CREATE_FILE);
         $this->_fc->setBody($output);

@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <h1>TASKER</h1>
 </div>
-<div> <?php echo "<h3>Добрый день, $this->name </h3>";?></div>
+<div> <?php echo "<h3>Добрый день, ". $this->user->firstName . " " . $this->user->middleName . "</h3>";?></div>
 
 <!--<div class="tab-content">
     <div id="homepage" class="tab-pane fade in active">
@@ -23,6 +23,7 @@
                 foreach ($this->list as $user => $role) {
                     echo "<li>$user : $role</li>";
                 }
+                
             ?>
         </ol>
     </div>

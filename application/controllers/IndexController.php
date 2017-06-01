@@ -1,4 +1,9 @@
 <?php
+/**
+ * Description of IndexController
+ *
+ * @author BIV
+ */
 class IndexController implements IController {
 	public function indexAction() {
 		$fc = FrontController::getInstance();
