@@ -63,7 +63,7 @@ class FrontController {
     }
 
     /**
-     * @todo 
+     * Very simple routing method
      * @throws Exception on unsearch the controller class, action method or if the conrtoller class does not implements IController interface
      */
     public function route() {
@@ -79,12 +79,15 @@ class FrontController {
                         $method->invoke($controller);
                     }
                 } else {
+                  //TODO add the 404 redirection
                     throw new Exception("Action");
                 }
             } else {
+              //TODO add the 404 redirection
                 throw new Exception("Interface");
             }
         } else {
+          //TODO add the 404 redirection
             throw new Exception("Controller");
         }
     }
@@ -105,6 +108,10 @@ class FrontController {
         return $this->_body;
     }
 
+    /**
+     * @todo output the body string to the body of page
+     * @param string $body
+     */
     public function setBody($body) {
         $this->_body = $body;
     }

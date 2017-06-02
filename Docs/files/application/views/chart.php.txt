@@ -1,6 +1,3 @@
-<?php 
-//$this->circleChart->outputImg("data/img/circle.png");
-?>
 <h2>График производительности</h2>
 
 <table class="table">
@@ -29,7 +26,14 @@
     
 
 <?php
-    //var_dump($this->calendar);
+    /*
+     * =====Вывод данных в форме календаря за неделю =====
+     * ===== вывод производиться в форме таблицы с =======
+     * ===== окрашиванием ячеек и выводом количества ======
+     * ===== выполненных/назначенных/просроченных задач ==
+     * TODO посмотреть, может лучше стоит попробовать выводить 
+     * задачи в формате timeline (see http://visjs.org/timeline_examples.html )
+     */
     echo "<tr>";
     foreach($this->calendar['completeTask'] as $key=>$day) {
         echo "<td align='center' style='vertical-align: middle;'>".$key."</th>";
@@ -44,17 +48,13 @@
         } else {
             echo "<td height='150px' align='center' style='vertical-align: middle;'>";
             echo "</td>";
-        }
-        
-//        if (!empty($day)) {
-//            foreach ($day as $tasks=>$task) {
-//                echo "<div><a href='/task/singleTask/id/".$task['task_id']."'>".$task['taskTitle']."</a></div>";
-//            }
-//        }       
+        }    
     }
     echo "</tr>";
 ?>
 </table>
+<button onclick="createChart();">Create Chart</button>
+<canvas id="myChart" width="100" height="100"></canvas>
 <?php
 //echo "<br><pre>";
 //print_r($this->calendar['completeTask']);

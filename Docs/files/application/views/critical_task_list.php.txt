@@ -1,4 +1,4 @@
-<h2>Список задач</h2>
+<h2>Список задач для пользователя <?=$_SESSION['secondName']." ".$_SESSION['firstName']?></h2>
 
 <p>
     <a href="./create">Добавить задание</a>

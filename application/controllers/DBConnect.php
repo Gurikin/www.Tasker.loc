@@ -9,11 +9,11 @@
 class DBConnect
 {
     /**
-     * @var object _dbh instance of PDO class. Using for the db query
-     * @var string _conStr - string for the create connection
-     * @var string _username
-     * @var string _password
-     * @var object _instance instance of this object. Except the clone of the connection with db
+     * @var object $_dbh instance of PDO class. Using for the db query
+     * @var string $_conStr - string for the create connection
+     * @var string $_username
+     * @var string $_password
+     * @var object $_instance instance of this object. Except the clone of the connection with db
      */
     private $_dbh,
             $_conStr, 

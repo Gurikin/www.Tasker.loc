@@ -21,16 +21,20 @@ class FileModel{
         
         public $circleChart;
 	
-        public function render($file) {
+        public function render($file, $getLayout = false) {
 		/* $file - текущее представление */
-		ob_start();
-                $bodyStr = file_get_contents(LAYOUT_FILE);
-                $bodyArr = explode('|||', $bodyStr);
-                echo ($bodyArr[0]);
-		include($file);
-                echo ($bodyArr[1]);
-		return ob_get_clean();
-	}
+          ob_start();
+          if ($getLayout) {
+            $bodyStr = file_get_contents(LAYOUT_FILE);
+            $bodyArr = explode('|||', $bodyStr);
+            echo ($bodyArr[0]);
+            include($file);
+            echo ($bodyArr[1]);            
+          } else {
+            include($file);
+          }
+          return ob_get_clean();
+        }
         
         public function getUser() {
             return $this->user;

@@ -1,7 +1,7 @@
 <?php
 /**
- * @author Igor Banchikov
  * This is the authentification controller class
+ * @author Igor Banchikov
  */
 class AuthController extends DBConnect implements IController {
     
