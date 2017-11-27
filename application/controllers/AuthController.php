@@ -16,7 +16,7 @@ class AuthController extends DBConnect implements IController {
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
-        $this->_model = new FileModel();
+        $this->_model = new UserModel();
         parent::__construct();
         $this->_dbh = parent::getDbh();
     }
@@ -51,7 +51,7 @@ class AuthController extends DBConnect implements IController {
           header('WWW-Authenticate: Basic realm="Мой секретный сайт"');
       } else {
           // сохраняем данные в сессию
-          $this->_model->setUser($row['id'], $row['firstName'], $row['secondName'], $row['middleName'], $row['login']);
+          $this->_model->setUser($row['id'], $row['firstName'], $row['secondName'], $row['middleName'], $row['jobTitle'], $row['login'], $row['phone']);
           $_SESSION["userId"] = $row['id'];
           $_SESSION["firstName"] = $row['firstName'];
           $_SESSION["secondName"] = $row['secondName'];
@@ -60,6 +60,7 @@ class AuthController extends DBConnect implements IController {
       }               
       $output = $this->_model->render(USER_DEFAULT_FILE, true);
       //var_dump($_SESSION);
+      //var_dump($this->_model);
       $this->_fc->setBody($output);
     }
 }

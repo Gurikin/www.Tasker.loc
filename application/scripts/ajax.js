@@ -66,7 +66,7 @@ function createChart() {
           }]
       }
   });
-  }
+}
   
   function userTasks() {
     

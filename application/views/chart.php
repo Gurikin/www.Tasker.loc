@@ -46,7 +46,7 @@
             echo "<div>".count($day)."</div>";
             echo "</td>";
         } else {
-            echo "<td height='150px' align='center' style='vertical-align: middle;'>";
+            echo "<td height='100px' align='center' style='vertical-align: middle;'>";
             echo "</td>";
         }    
     }
@@ -54,7 +54,9 @@
 ?>
 </table>
 <button onclick="createChart();">Create Chart</button>
-<canvas id="myChart" width="100" height="100"></canvas>
+<div class="chart-container" style="position: relative; height:16vh; width:16vw">
+    <canvas id="myChart"></canvas>
+</div>
 <?php
 //echo "<br><pre>";
 //print_r($this->calendar['completeTask']);

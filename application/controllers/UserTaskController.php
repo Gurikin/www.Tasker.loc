@@ -23,7 +23,7 @@ class UserTaskController extends DBConnect {
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
-        $this->_model = new FileModel();
+        $this->_model = new UserTaskModel();
         parent::__construct();
         $this->_dbh = parent::getDbh();
     }

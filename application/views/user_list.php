@@ -31,7 +31,7 @@
                 switch ($userCol) {
                     case 'user_id': break;
                     case 'secondName':
-                        printf("<td><a href='/user/selectUserConst/id/%s'>%s</a></td>", $this->userList[$i]['user_id'], $userField);
+                        printf("<td><a onclick=\"renderResponse('GET', '', '/user/selectUserConst/id/%s')\">%s</a></td>", $this->userList[$i]['user_id'], $userField);
                         break;
                     default:
                         echo "<td>$userField</td>";

@@ -19,7 +19,7 @@ class ChartController extends DBConnect implements IController {
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
-        $this->_model = new FileModel();
+        $this->_model = new CalendarModel();
         parent::__construct();
         $this->_userTaskController = new UserTaskController();
         $this->_dbh = parent::getDbh();
@@ -32,7 +32,7 @@ class ChartController extends DBConnect implements IController {
      */
     public function showWeekAction() {
       $table = 'user_task';
-        var_dump($_SESSION);
+        //var_dump($_SESSION);
         //var_dump($this->_calendar);
         $now = getdate();
         if ($now['wday'] == 1) {
@@ -48,8 +48,8 @@ class ChartController extends DBConnect implements IController {
         for ($d = $day; $d < ($day+7); $d++) {
             $date = DateTime::createFromFormat($format, $now['year'].'-'.$now['mon'].'-'.$d);
             //var_dump($date->getTimeStamp());
-            $query = "select * from task INNER JOIN " . $table . " ON task.id = user_task.task_id where user_task.user_id = ". $_SESSION['userId'] . " AND task.active=0 AND task.progress=100 AND task.endDate LIKE '".$date->format('Y-m-d')."%'";
-            echo $query."<br>";
+            $query = "select * from task INNER JOIN " . $table . " ON task.id = " . $table . ".task_id where " . $table . ".user_id = ". $_SESSION['userId'] . " AND task.active=1 AND task.endDate LIKE '".$date->format('Y-m-d')."%'";//" AND task.active=0 AND task.progress=100 AND task.endDate LIKE '".$date->format('Y-m-d')."%'";
+//            echo $query."<br>";
             $resultSelect = $this->_dbh->query($query);
             if ($resultSelect === false) {
                 throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
@@ -65,7 +65,7 @@ class ChartController extends DBConnect implements IController {
             $tableTask[$d] = $dayTasks;
         }
         
-        var_dump($tableTask);
+//        var_dump($tableTask);
         $this->_calendar['completeTask'] = $tableTask;
         $this->_model->calendar = $this->_calendar;
         $output = $this->_model->render(CHART_FILE);

@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <h1>TASKER</h1>
 </div>
-<div> <?php echo "<h3>Добрый день, ". $this->user->firstName . " " . $this->user->middleName . "</h3>";?></div>
+<div> <?php echo "<h3>Добрый день, ". $this->getUser()->firstName . " " . $this->getUser()->middleName . "</h3>";?></div>
 
 <!--<div class="tab-content">
     <div id="homepage" class="tab-pane fade in active">

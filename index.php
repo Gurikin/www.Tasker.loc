@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER["DOCUMENT_ROOT"].'/data/const.php');
+include_once($_SERVER["DOCUMENT_ROOT"].'/data/UtilClass.php');
 
 /* Автозагрузчик классов */
 function __autoload($class){

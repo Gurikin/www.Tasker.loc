@@ -38,7 +38,7 @@
             switch ($taskCol) {
                 case 'id' : break;
                 case 'taskTitle';
-                    echo "<td><a href='/task/singleTask/id/".$this->taskList[$i]['task_id']."'>".$taskField."</a></td>";
+                    printf("<td><a onclick=\"renderResponse('GET', '', '/task/singleTask/id/%s')\">%s</a></td>", $this->taskList[$i]['task_id'], $taskField);
                     break;
                 case 'progress';
                 case 'description';
