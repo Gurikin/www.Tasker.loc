@@ -34,25 +34,31 @@ function userInfo() {
 }
 
 function createChart() {
-  var req = sendRequest('GET', '', '/chart/getUserEffectivityChart');
+  var req = sendRequest('GET', '', '/chart/getUserEfficiencyChart');
   req.onreadystatechange = function() {
     if (req.readyState !== 4) return;
     if (req.status !== 200) {
       //handle of error
       alert (req.status + ': ' + req.statusText);
     } else {
-      //var response = document.getElementById("container body-content");
-      //response.innerHTML = req.responseText;
+//      var response = document.getElementById("container body-content");
+//      response.innerHTML = req.responseText;
+      var us = JSON.parse(req.responseText);
+      console.log(us);
+      createPieChart("myChart", us.users, us.efficiency);      
     }
   };
-  var ctx = document.getElementById("myChart");
+}
+
+function createPieChart(ctxElementId, labels, data) {
+  var ctx = document.getElementById(ctxElementId);
   var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
-          labels: ["Red", "Blue", "Yellow"],
+          labels,
           datasets: [{
               label: '# of Votes',
-              data: [12, 19, 3],
+              data,
               backgroundColor: [
                 "#FF6384",
                 "#36A2EB",
@@ -68,6 +74,7 @@ function createChart() {
   });
 }
   
-  function userTasks() {
-    
+  function userEfficiency() {
+    this.secondName = "";
+    this.taskCount = 0;
   }

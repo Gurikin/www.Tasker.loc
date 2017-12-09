@@ -4288,8 +4288,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-nav > li:hover,
   .navbar-nav > li:focus {
     color: #999999;
-    text-decoration: none;
-    //background: #269abc;
+    /*text-decoration: none;
+    background: #269abc;*/
   }
 }
 

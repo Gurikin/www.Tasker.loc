@@ -8,6 +8,7 @@ class ChartController extends DBConnect implements IController {
     private $_fc;
     private $_params = array();
     private $_model;
+    private $_userEffModel;
     private $_userTaskController;
     private $_dbh;
     private $_calendar;
@@ -20,6 +21,7 @@ class ChartController extends DBConnect implements IController {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
         $this->_model = new CalendarModel();
+        $this->_userEffModel = new UserEffeciencyModel();
         parent::__construct();
         $this->_userTaskController = new UserTaskController();
         $this->_dbh = parent::getDbh();
@@ -76,9 +78,9 @@ class ChartController extends DBConnect implements IController {
      * @todo send the data about effectivity of current user's group
      * @throws PDOException
      */
-    public function getUserEffectivityChartAction() {
+    public function getUserEfficiencyChartAction() {
       //TODO create the user_department controller 
-      //send the JSON object for the making circle chart
+      
       $table = 'user_department';
       $queryUserDepartmentId = "Select department_id from " . $table . " where user_id = " . $_SESSION['userId'];
       $resultSelectUserDepartmentID = $this->_dbh->query($queryUserDepartmentId);
@@ -102,14 +104,9 @@ class ChartController extends DBConnect implements IController {
         $users[] = $user['secondName'];
         $userTasks[] = count($user['task']);
       }
-      $jsonResult = new JSONResult($users, $userTasks);
-      //var_dump(array_combine($users, $userTasks));
-      //return json_encode($jsonResult);
-      echo json_encode($jsonResult);
-      //return $tableView;
-      //foreach ($tab)
+      //send the JSON object for the making circle chart
+      $jsonResult = $this->_userEffModel->getUserEffeciency($users, $userTasks);
+      echo json_encode($jsonResult);      
     }
 }
-
-
 ?>
