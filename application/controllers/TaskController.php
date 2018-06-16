@@ -58,8 +58,8 @@ class TaskController extends DBConnect implements IController {
      *       array (size=3)
      *         ...
      */
-    public function selectTaskAction($actTask = true) {
-        $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE active=" . $actTask;
+    public function selectTaskAction($progress = 0) {
+        $query = "SELECT id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description FROM " . $this->table . " WHERE progress<=" . $progress;
         try {
             $resultSelect = $this->_dbh->query($query);
             if ($resultSelect === false) {

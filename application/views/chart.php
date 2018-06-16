@@ -1,6 +1,6 @@
 <h2>График производительности</h2>
 
-<table class="table">
+<!--<table class="table">
     <tr>
         <th>
             Пн
@@ -22,8 +22,9 @@
         </th>
         <th>
             Вс
-        </th>
-    
+        </th> 
+        
+        <script language="javascript" type="text/javascript">fch();</script>
 
 <?php
     /*
@@ -34,6 +35,7 @@
      * TODO посмотреть, может лучше стоит попробовать выводить 
      * задачи в формате timeline (see http://visjs.org/timeline_examples.html )
      */
+/*
     echo "<tr>";
     foreach($this->calendar['completeTask'] as $key=>$day) {
         echo "<td align='center' style='vertical-align: middle;'>".$key."</th>";
@@ -50,16 +52,18 @@
             echo "</td>";
         }    
     }
-    echo "</tr>";
+    echo "</tr>";*/
 ?>
-</table>
-<button onclick="createChart();">Create Chart</button>
-<div class="chart-container" style="position: relative; height:16vh; width:16vw">
+</table>-->
+
+<button id="circleChart" onclick="fch();">Create Gantt Chart</button>
+<div id="chart-container" class="chart-container" style="position: relative; height:16vh; width:16vw">
     <canvas id="myChart"></canvas>
 </div>
 <?php
-//echo "<br><pre>";
+echo "<br><pre> <div id='ch-c' onload=\"fch();\"></div>"
 //print_r($this->calendar['completeTask']);
 //echo "<br></pre>";
+//echo '<script type="text/javascript" src="/application/scripts/loadCharts.js"></script>';
 
 ?>

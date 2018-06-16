@@ -32,7 +32,3 @@
             ?></dd>
         </dl>
     </div>
-
-<div>
-    <a href="#" OnClick="history.back();">Вернуться к списку</a>
-</div>

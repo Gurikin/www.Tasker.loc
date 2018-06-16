@@ -36,7 +36,7 @@
 
             <dd><?=$this->userList['phone']?></dd>
             <dt>Назначенные задания</dt>
-            <dd>
+            <dd class="dd-inline">
                 <table class="table">
                 <tr>
                     <th>Описание</th>
@@ -62,31 +62,14 @@
                             ."</tr>";
                     }
                 ?>
-                </table>
-                <!--<table class="table">
-                    <tr>
-                        <th>Описание назначенных задач</th>
-                        <th>Дата назначения</th>
-                    </tr>
-                    @foreach (var item in Model.Tasks)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.taskTitle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.orderDate)
-                            </td>
-                        </tr>
-                    }
-                </table>-->
+                </table>                
             </dd>
         </dl>
     </div>
 
 <div>
-    <!--<a href="/user/selectUser">Вернуться к списку</a>-->
-    <a href="#" OnClick="history.back();">Вернуться к списку</a>
+    <!--<a href="/user/selectUser">Вернуться к списку</a>
+    <a href="#" onclick="$('#modalWindow').toggle(350);//renderResponse('GET', '', '/user/selectUser'); ">Вернуться к списку</a>-->
 </div>
 <?php
     

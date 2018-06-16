@@ -612,7 +612,7 @@ dd {
 @media (min-width: 1024px) {
   .dl-horizontal dt {
     float: left;
-    width: 160px;
+    width: 220px;
     overflow: hidden;
     clear: left;
     text-align: right;
@@ -637,6 +637,9 @@ dd {
   }
   .dl-horizontal dd:after {
     clear: both;
+  }
+  .dd-inline {
+      display: inline;
   }
 }
 

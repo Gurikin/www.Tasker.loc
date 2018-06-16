@@ -19,11 +19,11 @@ class UserTaskController extends DBConnect {
     private $_fc;
     private $_model;
     private $_dbh;
-
+    
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
-        $this->_model = new UserTaskModel();
+        $this->_model = new UserTaskModel();    
         parent::__construct();
         $this->_dbh = parent::getDbh();
     }
@@ -32,10 +32,10 @@ class UserTaskController extends DBConnect {
      * @todo Выборка назначенных сотрудникам задач
      * @return array like as (id, taskTitle, orderDate, beginDate, endDate, factEndDate, progress, description, active, user_id, task_id)
      */
-    public function selectUserTasks($userId) {
+    public function selectUserTasks($userId, $progress=0) {
         $tableView = array();
         try {            
-            $query = "select * from task INNER JOIN " . $this->table . " ON task.id = user_task.task_id where user_task.user_id = " . $userId;
+            $query = "select * from task INNER JOIN " . $this->table . " ON task.id = user_task.task_id where user_task.user_id = " . $userId . " and task.progress <= " . $progress;
             //echo $query;
             $resultSelect = $this->_dbh->query($query);
             //var_dump($resultSelect);

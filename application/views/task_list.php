@@ -41,7 +41,7 @@
             switch ($taskCol) {
                 case 'id' : break;
                 case 'taskTitle';
-                    echo "<td><a onclick=\"renderResponse('GET', '', '/task/singleTask/id/".$this->taskList[$i]['id']."')\">".$taskField."</a></td>";
+                    echo "<td><a onclick=\"renderItemInfo('GET', '', '/task/singleTask/id/".$this->taskList[$i]['id']."')\">".$taskField."</a></td>";
                     break;
                 case 'progress';
                 case 'description';
@@ -64,7 +64,7 @@
                     echo "<td style='white-space: nowrap;'>";
                     foreach ($taskField as $user) {
                         if (!empty($user)) {
-                            printf("<a href='/user/selectUserConst/id/%s'>%s %s<br></a>", $user["user_id"], $user["firstName"], $user["secondName"]);
+                            printf("<a onclick=\"renderItemInfo('GET', '', '/user/selectUserConst/id/%s');\">%s %s<br></a>", $user["user_id"], $user["firstName"], $user["secondName"]);
                         }
                     }
                     echo "</td>";

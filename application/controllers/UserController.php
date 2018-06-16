@@ -64,8 +64,6 @@ class UserController extends DBConnect implements IController {
         $this->_fc->setBody($output);
     }
 
-    //ТАКОЙ ЖЕ МЕТОД ЕСТЬ В КЛАССЕ UserTaskController
-    //TODO убрать задвоение кода
     /**
      * @todo Этот метод выбирает из БД одного сотрудника по его id
      * @param int $userId

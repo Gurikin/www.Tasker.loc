@@ -26,12 +26,12 @@
     for ($i = 0; $i < count($this->userList); $i++) {
         echo "<tr>";
         foreach ($this->userList[$i] as $userCol => $userField) {
-            
+
             if (!is_array($userField)) {// && $userCol != 'user_id') {
                 switch ($userCol) {
                     case 'user_id': break;
                     case 'secondName':
-                        printf("<td><a onclick=\"renderResponse('GET', '', '/user/selectUserConst/id/%s')\">%s</a></td>", $this->userList[$i]['user_id'], $userField);
+                        printf("<td><a onclick=\"renderItemInfo('GET', '', '/user/selectUserConst/id/%s')\">%s</a></td>", $this->userList[$i]['user_id'], $userField);
                         break;
                     default:
                         echo "<td>$userField</td>";

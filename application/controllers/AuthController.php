@@ -41,7 +41,7 @@ class AuthController extends DBConnect implements IController {
           $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
       } catch (PDOException $ex) {
           // TODO add the log of errors
-          //echo $ex->getMessage();
+          echo $ex->getMessage();
       }
       // Проверяем введенные данные
       if($row['id'] == null){

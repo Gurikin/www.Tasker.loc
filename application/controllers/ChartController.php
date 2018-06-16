@@ -96,7 +96,7 @@ class ChartController extends DBConnect implements IController {
       }
       $i = 0;
       while ($rowWorkGroup = $resultSelectWorkGroup->fetch(PDO::FETCH_ASSOC)) {
-          $rowWorkGroup['task'] = $this->_userTaskController->selectUserTasks($rowWorkGroup['id']);
+          $rowWorkGroup['task'] = $this->_userTaskController->selectUserTasks($rowWorkGroup['id'], 100);
           $tableView[$rowWorkGroup['secondName']] = $rowWorkGroup;
           $i++;
       }

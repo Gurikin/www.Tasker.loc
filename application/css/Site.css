@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -8,6 +8,8 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
