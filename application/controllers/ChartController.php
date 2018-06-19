@@ -79,8 +79,45 @@ class ChartController extends DBConnect implements IController {
      * @throws PDOException
      */
     public function getUserEfficiencyChartAction() {
-      //TODO create the user_department controller 
+            
+      $table = 'task';
+      $queryUserDepartmentId = "Select department_id from " . $table . " where user_id = " . $_SESSION['userId'];
+      $resultSelectUserDepartmentID = $this->_dbh->query($queryUserDepartmentId);
+      if ($resultSelectUserDepartmentID === false) {
+          throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
+      }
+      $rowUserDepartmentId = $resultSelectUserDepartmentID->fetch(PDO::FETCH_ASSOC);
+      $queryWorkGroup = "Select user.id, firstName, secondName, " . $table . ".department_id as depart_id from user INNER JOIN " . $table . " ON " . $table . ".department_id = " . $rowUserDepartmentId['department_id'] . " AND user.id = " . $table . ".user_id";
+      //echo $queryWorkGroup;
+      $resultSelectWorkGroup = $this->_dbh->query($queryWorkGroup);
+      if ($resultSelectWorkGroup === false) {
+          throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
+      }
+      $i = 0;
+      while ($rowWorkGroup = $resultSelectWorkGroup->fetch(PDO::FETCH_ASSOC)) {
+          $rowWorkGroup['task'] = $this->_userTaskController->selectUserTasks($rowWorkGroup['id'], 100);
+          $tableView[$rowWorkGroup['secondName']] = $rowWorkGroup;
+          $i++;
+      }
+      foreach ($tableView as $user) {
+        $users[] = $user['secondName'];
+        $userTasks[] = count($user['task']);
+      }
+      //send the JSON object for the making circle chart
+      $jsonResult = $this->_userEffModel->getUserEffeciency($users, $userTasks);
+      echo json_encode($jsonResult);      
+    }
+    
+    /**
+     * @todo send the data about effectivity of current user's group
+     * @throws PDOException
+     */
+    public function getProjectsDataAction() {
       
+      //Task name
+      //Task owner
+      //Task data of begin
+      //Task data of end
       $table = 'user_department';
       $queryUserDepartmentId = "Select department_id from " . $table . " where user_id = " . $_SESSION['userId'];
       $resultSelectUserDepartmentID = $this->_dbh->query($queryUserDepartmentId);
@@ -108,5 +145,8 @@ class ChartController extends DBConnect implements IController {
       $jsonResult = $this->_userEffModel->getUserEffeciency($users, $userTasks);
       echo json_encode($jsonResult);      
     }
+    
+    
+    
 }
 ?>

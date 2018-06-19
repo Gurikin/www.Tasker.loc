@@ -16,7 +16,7 @@ function fch() {
                 dataSource: {
                     "chart": {
                         "dateformat": "mm/dd/yyyy",
-                        "caption": "Social Media Optimization",
+                        "caption": "Main Project",
                         "subcaption": "Project Plan",
                         "theme": "fint",
                         "canvasBorderAlpha": "30",

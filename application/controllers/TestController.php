@@ -13,53 +13,55 @@
  */
 class TestController extends DBConnect implements IController {
 
-    public $table = 'user';
+    public $table = 'task';
     public $activeUserView = 'activeUserView';
     public $firedUserView = 'firedUserView';
     private $_fc;
     private $_params = array();
     private $_model;
     private $_userTaskController;
+    private $_dbh;
 
     public function __construct() {
         $this->_fc = FrontController::getInstance();
         /* Инициализация модели */
-        $this->_model = new FileModel();
-        $this->_userTaskController = new UserTaskController;
+        $this->_model = new TaskModel();
         parent::__construct();
+        $this->_userTaskController = new UserTaskController();
+        $this->_dbh = parent::getDbh();
     }
 
     //---------------------------------------------
     //методы для работы с БД
     //---------------------------------------------
     //Выборка действующих либо уволившихся сотрудников
-    public function selectUserAction($actUser = true) {
-        try {
-            if ($actUser) {
-                $fn = '%%';
-                $sn = '%ива%';
-                $query = "CALL tasker.select_like('$sn', '$fn')";
-            } else {
-                $query = "CALL tasker.select_like('$sn', '$fn')";
-            }
-            $dbh = parent::getDbh();
-            $resultSelect = $dbh->query($query);
-            if ($resultSelect === false) {
-                throw new PDOException;
-            }
-            $i = 0;
-            while ($row = $resultSelect->fetch(PDO::FETCH_ASSOC)) {
-                $row['tasks'] = $this->_userTaskController->selectUserTasks($row['user_id']);
-                $tableView[$i] = $row;
-                $i++;
-            }
-        } catch (PDOException $ex) {
-            echo $ex->getMessage();
-        }
-        $this->_model->userList = $tableView;
-        $output = $this->_model->render(USER_LIST_FILE);
-        $this->_fc->setBody($output);
-    }
+//    public function selectUserAction($actUser = true) {
+//        try {
+//            if ($actUser) {
+//                $fn = '%%';
+//                $sn = '%ива%';
+//                $query = "CALL tasker.select_like('$sn', '$fn')";
+//            } else {
+//                $query = "CALL tasker.select_like('$sn', '$fn')";
+//            }
+//            $dbh = parent::getDbh();
+//            $resultSelect = $dbh->query($query);
+//            if ($resultSelect === false) {
+//                throw new PDOException;
+//            }
+//            $i = 0;
+//            while ($row = $resultSelect->fetch(PDO::FETCH_ASSOC)) {
+//                $row['tasks'] = $this->_userTaskController->selectUserTasks($row['user_id']);
+//                $tableView[$i] = $row;
+//                $i++;
+//            }
+//        } catch (PDOException $ex) {
+//            echo $ex->getMessage();
+//        }
+//        $this->_model->userList = $tableView;
+//        $output = $this->_model->render(USER_LIST_FILE);
+//        $this->_fc->setBody($output);
+//    }
 
     /**
      * Этот метод возвращает имя и фамилию сотрудника по его id
@@ -76,30 +78,59 @@ class TestController extends DBConnect implements IController {
 
       return $name;
       } */
-    public function addAction($objUser, $administrator = 0, $activeJob = 1) {
-        $firstName = $objUser->firstName;
-        $secondName = $objUser->secondName;
-        $middleName = $objUser->middleName;
-        $jobTitle = $objUser->jobTitle;
-
-        $insQuery = "INSERT INTO user ( firstName, 
-					secondName, 
-					middleName, 
-					jobTitle, 
-					login, 
-					password, 
-					administrator, 
-					activeJob) 
-					VALUES ('$firstName', 
-                                                '$secondName', 
-                                                '$middleName', 
-                                                '$jobTitle',
-                                                '',
-                                                '',
-                                                '$administrator', 
-                                                '$activeJob')";
-        $insResult = mysql_query($insQuery) or dieSql();
-        return $insResult;
+    public function addAction() {
+        for ($i=0; $i<100; $i++) {
+            $taskTitle = "Task # ".$i;
+            $orderDate = date ("Y-m-d H:i:s");
+            $beginDate = $orderDate;
+            $endDate = $orderDate;
+            $progress = 0;
+            $description = "Task description # ".$i;
+            $active = 1;
+            $insQuery = "INSERT INTO task ( taskTitle, 
+					orderDate, 
+                                        beginDate,
+					endDate,
+                                        factEndDate,
+					progress, 
+					description, 
+					active) 
+					VALUES ('$taskTitle', 
+                                                '$orderDate',
+                                                '$orderDate',
+                                                '$orderDate',
+                                                '$orderDate',
+                                                '$progress',
+                                                '$description',
+                                                '$active')";
+            try {
+                echo $insQuery;
+                $resultSelect = $this->_dbh->query($insQuery);
+//                if ($resultSelect === false) {
+//                    throw new PDOException('Ошибка при выполнении запроса insert task.');
+//                }                
+            } catch (PDOException $ex) {
+                echo $ex->getMessage();
+            }
+        }
+    }
+    
+    public function add2Action() {
+        for ($i=1012; $i<=1111; $i++) {
+            $userID = 1;
+            $taskID = $i;
+            
+            $insQuery = "INSERT INTO user_task ( user_Id,task_Id) VALUES ('$userID', '$taskID')";
+            try {
+                echo $insQuery;
+                $resultSelect = $this->_dbh->query($insQuery);
+//                if ($resultSelect === false) {
+//                    throw new PDOException('Ошибка при выполнении запроса insert task.');
+//                }                
+            } catch (PDOException $ex) {
+                echo $ex->getMessage();
+            }
+        }
     }
 
     public function updateData() {
