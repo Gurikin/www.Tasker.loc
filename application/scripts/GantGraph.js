@@ -1,3 +1,4 @@
+
 function divCreate() {
     var div = document.createElement('div');
     div.id = "ch-c";

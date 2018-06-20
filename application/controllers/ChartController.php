@@ -9,6 +9,7 @@ class ChartController extends DBConnect implements IController {
     private $_params = array();
     private $_model;
     private $_userEffModel;
+    private $_ganttModel;
     private $_userTaskController;
     private $_dbh;
     private $_calendar;
@@ -22,6 +23,7 @@ class ChartController extends DBConnect implements IController {
         /* Инициализация модели */
         $this->_model = new CalendarModel();
         $this->_userEffModel = new UserEffeciencyModel();
+        $this->_ganttModel = new GanttModel();
         parent::__construct();
         $this->_userTaskController = new UserTaskController();
         $this->_dbh = parent::getDbh();
@@ -103,7 +105,7 @@ class ChartController extends DBConnect implements IController {
         $users[] = $user['secondName'];
         $userTasks[] = count($user['task']);
       }
-      //send the JSON object for the making circle chart
+      //send the JSON object for the making pie chart
       $jsonResult = $this->_userEffModel->getUserEffeciency($users, $userTasks);
       echo json_encode($jsonResult);      
     }
@@ -118,32 +120,27 @@ class ChartController extends DBConnect implements IController {
       //Task owner
       //Task data of begin
       //Task data of end
-      $table = 'user_department';
-      $queryUserDepartmentId = "Select department_id from " . $table . " where user_id = " . $_SESSION['userId'];
-      $resultSelectUserDepartmentID = $this->_dbh->query($queryUserDepartmentId);
-      if ($resultSelectUserDepartmentID === false) {
+      $view = 'ganttView';
+      $queryProjectTask = "Select * from " . $view;
+      $resultSelectProjectTask = $this->_dbh->query($queryProjectTask);
+      if ($resultSelectProjectTask === false) {
           throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
       }
-      $rowUserDepartmentId = $resultSelectUserDepartmentID->fetch(PDO::FETCH_ASSOC);
-      $queryWorkGroup = "Select user.id, firstName, secondName, " . $table . ".department_id as depart_id from user INNER JOIN " . $table . " ON " . $table . ".department_id = " . $rowUserDepartmentId['department_id'] . " AND user.id = " . $table . ".user_id";
-      //echo $queryWorkGroup;
-      $resultSelectWorkGroup = $this->_dbh->query($queryWorkGroup);
-      if ($resultSelectWorkGroup === false) {
-          throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
+      
+      while ($rowSelectProjectTask = $resultSelectProjectTask->fetch(PDO::FETCH_ASSOC)) {
+//          foreach ($rowSelectProjectTask as $task) {
+//              $tasks[] =
+//          }
+          $tasks[] = $rowSelectProjectTask;
+          var_dump($rowSelectProjectTask);
       }
-      $i = 0;
-      while ($rowWorkGroup = $resultSelectWorkGroup->fetch(PDO::FETCH_ASSOC)) {
-          $rowWorkGroup['task'] = $this->_userTaskController->selectUserTasks($rowWorkGroup['id'], 100);
-          $tableView[$rowWorkGroup['secondName']] = $rowWorkGroup;
-          $i++;
-      }
-      foreach ($tableView as $user) {
-        $users[] = $user['secondName'];
-        $userTasks[] = count($user['task']);
-      }
+//      foreach ($tableView as $user) {
+//        $users[] = $user['secondName'];
+//        $userTasks[] = count($user['task']);
+//      }
       //send the JSON object for the making circle chart
-      $jsonResult = $this->_userEffModel->getUserEffeciency($users, $userTasks);
-      echo json_encode($jsonResult);      
+      //$jsonResult = $tasks[];
+      //echo json_encode($jsonResult);      
     }
     
     
