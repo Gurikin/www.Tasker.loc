@@ -125,25 +125,69 @@ class ChartController extends DBConnect implements IController {
       $resultSelectProjectTask = $this->_dbh->query($queryProjectTask);
       if ($resultSelectProjectTask === false) {
           throw new PDOException('Ошибка при селекте UserTasks в классе ChartController');
+      } else {
+          $arrData = array(
+            "chart" => array(
+                "dateformat" => "yyyy-mm-dd",
+                "caption"=> "Main Project",
+                "subCaption"=> "Project plan",
+                "theme"=> "fint",
+                "canvasBorderAlpha" => "30",
+                "ganttPaneDuration" => "3",
+                "ganttPaneDurationUnit" => "m"
+                )
+              );
       }
       
+      // creating array for categories object
+
+      $categoryArray=array();
+      $datatable=array();/*array("chart"=> array (
+                        "dateformat"=> "yyyy-mm-dd",
+                        "caption"=> "Main Project",
+                        "subcaption"=> "Project Plan",
+                        "theme"=> "fint",
+                        "canvasBorderAlpha"=> "30",
+                        "ganttPaneDuration"=> "3",
+                        "ganttPaneDurationUnit"=> "m")
+          );       */     
+      $categoryArray = array(array('start'=>"2018-01-01",'end'=>"2018-01-01",'label'=>"Янв '18"),
+          array('start'=>"2018-02-01",'end'=>"2018-02-28",'label'=>"Фев '18"),
+          array('start'=>"2018-03-01",'end'=>"2018-03-31",'label'=>"Мар '18"),
+          array('start'=>"2018-04-01",'end'=>"2018-04-30",'label'=>"Апр '18"),
+          array('start'=>"2018-05-01",'end'=>"2018-05-31",'label'=>"Май '18"),
+          array('start'=>"2018-06-01",'end'=>"2018-06-30",'label'=>"Июн '18"),
+          array('start'=>"2018-07-01",'end'=>"2018-07-31",'label'=>"Июл '18"),
+          array('start'=>"2018-08-01",'end'=>"2018-08-31",'label'=>"Авг '18"),
+          array('start'=>"2018-09-01",'end'=>"2018-09-30",'label'=>"Сен '18"),
+          array('start'=>"2018-10-01",'end'=>"2018-10-31",'label'=>"Окт '18"),
+          array('start'=>"2018-11-01",'end'=>"2018-11-30",'label'=>"Ноя '18"),
+          array('start'=>"2018-12-01",'end'=>"2018-12-31",'label'=>"Дек '18"));
+      
       while ($rowSelectProjectTask = $resultSelectProjectTask->fetch(PDO::FETCH_ASSOC)) {
-//          foreach ($rowSelectProjectTask as $task) {
-//              $tasks[] =
-//          }
-          $tasks[] = $rowSelectProjectTask;
-          var_dump($rowSelectProjectTask);
+          array_push($owners, array(
+              "label" => $rowSelectProjectTask['secondName']));
+          array_push($processes, array(
+              "label" => $rowSelectProjectTask['taskTitle']));
+          array_push($tasks['task'], array(
+              "start" => $rowSelectProjectTask['orderDate']));
+          array_push($tasks['task'], array(
+              "end" => $rowSelectProjectTask['endDate']));//          
       }
+      $arrData["categories"]=array(array("category"=>$categoryArray));
+      // creating dataset object
+      $arrData["dataSource"] = array(array("seriesName"=> "Actual Revenue", "data"=>$dataseries1), array("seriesName"=> "Projected Revenue",  "renderAs"=>"line", "data"=>$dataseries2),array("seriesName"=> "Profit",  "renderAs"=>"area", "data"=>$dataseries3));
 //      foreach ($tableView as $user) {
 //        $users[] = $user['secondName'];
 //        $userTasks[] = count($user['task']);
 //      }
       //send the JSON object for the making circle chart
-      //$jsonResult = $tasks[];
-      //echo json_encode($jsonResult);      
+      //$jsonResult = $this->_ganttModel->getGanttData($tasks);      
+      echo json_encode($jsonResult);
+      
+//      echo "<pre>";
+//      var_dump ($jsonResult);
+//      echo "</pre>";      
     }
-    
-    
-    
 }
 ?>

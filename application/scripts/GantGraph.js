@@ -4,19 +4,44 @@ function divCreate() {
     div.id = "ch-c";
     document.getElementById('container body-content').appendChild(div);    
 }
-function fch() {
+
+function createGanttChart() {
+    $(document).ready(function() {
+        var req = sendRequest('GET', '', '/chart/getProjectsData');
+      req.onreadystatechange = function () {
+          if (req.readyState !== 4)
+              return;
+          if (req.status !== 200) {
+              //handle of error
+              alert(req.status + ': ' + req.statusText);
+          } else {
+  //      var response = document.getElementById("container body-content");
+  //      response.innerHTML = req.responseText;              
+              //var us = JSON.parse(req.responseText);
+              //console.log(us.firstName);
+              console.log(req.responseText);
+              //fch();
+          }
+      };    
+    });
+}
+
+function fch(ownerNames, taskTitles, orderDates, endDates) {
+    //var owners = array();
+    
     $(document).ready(function () {        
         divCreate();        
+        
         FusionCharts.ready(function () {
             var fusioncharts = new FusionCharts({
                 type: 'gantt',
                 renderAt: 'ch-c',
-                width: '650',
-                height: '400',
+                width: '800',
+                height: '600',
                 dataFormat: 'json',
                 dataSource: {
                     "chart": {
-                        "dateformat": "mm/dd/yyyy",
+                        "dateformat": "yyyy-mm-dd",
                         "caption": "Main Project",
                         "subcaption": "Project Plan",
                         "theme": "fint",
@@ -25,11 +50,11 @@ function fch() {
                         "ganttPaneDurationUnit": "m"
                     },
                     "datatable": {
-                        "headervalign": "bottom",
+                        "headervalign": "center",
                         "datacolumn": [{
                                 "headertext": "Owner",
                                 "headerfontsize": "14",
-                                "headervalign": "bottom",
+                                "headervalign": "center",
                                 "headeralign": "left",
                                 "align": "left",
                                 "fontsize": "12",

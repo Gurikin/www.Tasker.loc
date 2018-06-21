@@ -53,6 +53,14 @@
   }
   }
   echo "</tr>"; */
+    /*JSON Encode the data to retrieve the string containing the JSON representation of the data in the array.
+    $jsonEncodedData = json_encode($arrData);
+    
+    // chart object
+    $msChart = new FusionCharts("gantt", "ganttChart" , "800", "600", "ch-c", "json", $jsonEncodedData);
+    
+    // Render the chart
+    $msChart->render(); */
 ?>
 </table>-->
 

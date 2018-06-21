@@ -17,14 +17,16 @@ class GanttModel extends FileModel {
   public function __construct() {
     
   }
-  public function getGanttData($ganttArr) {
-    $this->$ganttData[key($ganttArr)] = array_v;
-    $tasks=array_sum($userTasks);
-    $efficiency = array();
-    foreach ($userTasks as $eff=>$v) {
-      $efficiency[] = round($v/$tasks*100);
-    }
-    $this->userEffeciency["efficiency"] = $efficiency;
-    return $this->userEffeciency;
+  public function getGanttData($queryArray) {
+    $this->ganttData = $queryArray;
+//    $i = 0;
+//    foreach (array_keys($queryArray) as $key) {
+//        foreach (array_keys($queryArray[$key]) as $key2) {
+//            foreach (array_values($queryArray[$key]) as $value) {
+//                $this->ganttData[$key][$key2] = $value;
+//            }            
+//        }        
+//    }
+    return $this->ganttData;
   }
 }

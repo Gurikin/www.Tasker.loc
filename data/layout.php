@@ -37,7 +37,7 @@
                         <li><a onclick="renderResponse('GET', '', '/home/get/about');">О программе</a></li>
                         <li><a onclick="renderResponse('GET', '', '/task/selectTask');">Задачи группы</a></li>
                         <li><a onclick="renderResponse('GET', '', '/user/selectUser');">Коллеги</a></li>
-                        <li><a onclick="renderResponse('GET', '', '/chart/showWeek'); createChart(); fch();">Графики</a></li>
+                        <li><a onclick="renderResponse('GET', '', '/chart/showWeek'); createChart(); createGanttChart();">Графики</a></li>
                         <li><a onclick="renderResponse('GET', '', '/home/get/contact');">Поиск сотрудника</a></li>
                         <li><a onclick="renderResponse('GET', '', '/task/criticalTask');">Личные задачи</a></li>
                     </ul>
