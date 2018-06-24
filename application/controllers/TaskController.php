@@ -110,15 +110,15 @@ class TaskController extends DBConnect implements IController {
      */
     public function addAction() {
         
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST))
+    {        
         $taskTitle = $_POST['taskTitle'];
         $orderDate = date ("Y-m-d H:i:s");
         $beginDate = $_POST['beginDate'];
         $endDate = $_POST['endDate'];
         $progress = $_POST['progress'];
         $description = $_POST['description'];
-    }
+        
         $insQuery = "INSERT INTO task ( taskTitle,
 					orderDate,
 					beginDate,
@@ -131,15 +131,19 @@ class TaskController extends DBConnect implements IController {
                             '$endDate',
                             '$progress',
                             '$description')";
+    }
+        
         
         $insResult = $this->_dbh->query($insQuery);
         if ($insResult === false) {
+            
             throw new PDOException;
         }
         else {
-            
+            echo "Задача добавлена успешно.";
+            return;
         }
-        header ("Location: /task/selectTask");
+        
     }
     
     /**

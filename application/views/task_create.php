@@ -2,7 +2,7 @@
     //include_once '/application/models/Task_Class.php';
 ?>
 
-<form action="./add" method="post">
+<form method="post" id="ajax-form" action="">
 
 <div class="form-horizontal">
         <h4>Создание новой задачи</h4>
@@ -52,17 +52,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Добавить" class="btn btn-default" />
+                <input onclick="sendForm('modalWindow-content', 'ajax-form', '/task/add'); renderResponse('GET', '', '/task/selectTask');" type="button" value="Добавить" id="ajax-post" class="btn btn-default" />
             </div>
         </div>
     </div>
 </form>
 
 <div>
-    <a href="./selectTask">Вернуться к списку</a>
+    <a onclick="$('#modalWindow').toggle(350);">Вернуться к списку</a>
 </div>
 
-
-<?php
+<script>
     
-?>
+</script>

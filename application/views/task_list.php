@@ -1,7 +1,7 @@
 <h2>Список задач</h2>
 
 <p>
-    <a href="./create">Добавить задание</a>
+    <a onclick="renderItemInfo('GET', '', '/task/create')">Добавить задачу</a>
 </p>
 
 
