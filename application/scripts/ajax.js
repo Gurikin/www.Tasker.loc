@@ -26,6 +26,7 @@ function sendForm(result_form, ajax_form, url) {
     $("#ajax-post").click(
 		function(){
 			sendAjaxForm(result_form, ajax_form, url);
+                        console.log("Function sendForm have worked.");
 			return false; 
 		}
 	);
@@ -43,6 +44,7 @@ function sendAjaxForm(result_form, ajax_form, url) {
             //result = $.parseJSON(response);            
             //$('#'+result_form).html(result);            
             $('#modalWindow').toggle(350);
+            renderResponse('GET', '', '/task/selectTask');
     	},
     	error: function(response) { // Данные не отправлены
             $('#'+result_form).html('Ошибка. Данные не отправлены.');

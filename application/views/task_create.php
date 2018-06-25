@@ -52,7 +52,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input onclick="sendForm('modalWindow-content', 'ajax-form', '/task/add'); renderResponse('GET', '', '/task/selectTask');" type="button" value="Добавить" id="ajax-post" class="btn btn-default" />
+                <input onclick="sendForm('modalWindow-content', 'ajax-form', '/task/add');" type="button" value="Добавить" id="ajax-post" class="btn btn-default" />
             </div>
         </div>
     </div>

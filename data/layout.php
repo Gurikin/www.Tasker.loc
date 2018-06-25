@@ -7,18 +7,21 @@
 
         <title>Tasker</title>
         <link rel="stylesheet" type="text/css" href="/application/css/main.css" media="screen" />
-
+        
+        <script src="/application/scripts/jquery-3.1.1.js"></script>
+        <script type="text/javascript" src="/application/scripts/FusionChart/fusioncharts.js"></script>
+        <script type="text/javascript" src="/application/scripts/FusionChart/themes/fusioncharts.theme.fint.js"></script>
+        
         <script src="/application/Scripts/modernizr-2.6.2.js"></script>
         <!--<script src="/application/scripts/jquery-1.10.2.js"></script>-->
-        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        
         <script type="text/javascript" src="/application/scripts/bootstrap.js" async="async"></script>
         <script src="/application/Scripts/respond.js"></script>
         <script src="/application/Scripts/ajax.js"></script>
         <script src="/application/Scripts/Chart.js"></script>
         <script src="/application/Scripts/GantGraph.js"></script>
 
-        <script type="text/javascript" src="/application/scripts/FusionChart/fusioncharts.js"></script>
-        <script type="text/javascript" src="/application/scripts/FusionChart/themes/fusioncharts.theme.fint.js"></script>
+        
         
     </head>
     <body>
