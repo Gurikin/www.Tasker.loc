@@ -861,7 +861,7 @@ pre code {
 .col-lg-11,
 .col-lg-12 {
   position: relative;
-  min-height: 1px;
+  min-height: 1px;  
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -1127,7 +1127,7 @@ pre code {
     width: 75%;
   }
   .col-md-10 {
-    width: 83.33333333333334%;
+    width: 100%;
   }
   .col-md-11 {
     width: 91.66666666666666%;
@@ -1214,7 +1214,7 @@ pre code {
     margin-left: 8.333333333333332%;
   }
   .col-md-offset-2 {
-    margin-left: 16.666666666666664%;
+    margin-left: 0%;
   }
   .col-md-offset-3 {
     margin-left: 25%;
@@ -1659,6 +1659,7 @@ label {
   display: inline-block;
   margin-bottom: 5px;
   font-weight: bold;
+  min-width: 45%;
 }
 
 input[type="search"] {

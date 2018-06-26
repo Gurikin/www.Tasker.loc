@@ -152,6 +152,13 @@
     transform: scale(1);
 }
 
+.col-md-10 input{
+    position: relative;
+    float: right;
+    min-width: 200px;
+    margin-right:  25px;
+}
+
 /***************************
 * Start of popup CSS
 ****************************/
