@@ -91,6 +91,7 @@
 .modalWindow-container {
     font-size: 14px;
     min-width: 400px;
+    min-height: 200px;
     display: inline-block;
     background: #333;
     color: white;

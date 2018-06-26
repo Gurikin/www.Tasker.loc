@@ -20,36 +20,35 @@ function renderResponse(requestType, JSONreq, requestUrl) {
     };
 }
 
-/* Article FructCode.com */
-function sendForm(result_form, ajax_form, url) {
-    $( document ).ready(function() {
-    $("#ajax-post").click(
-		function(){
-			sendAjaxForm(result_form, ajax_form, url);
-                        console.log("Function sendForm have worked.");
-			return false; 
-		}
-	);
+function sendAjaxForm() {
+    $("#ajax-form").submit(function (event) {
+        //Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page
+        var $form = $(this),
+                tskTitle = $form.find("input[name='taskTitle']").val(),
+                bgnDate = $form.find("input[name='beginDate']").val(),
+                eDate = $form.find("input[name='endDate']").val(),
+                prgs = $form.find("input[name='progress']").val(),
+                dscrn = $form.find("input[name='description']").val(),
+                url = $form.attr("action");
+
+        //Send hte data using post
+        var posting = $.post(url, {
+            taskTitle: tskTitle,
+            beginDate: bgnDate,
+            endDate: eDate,
+            progress: prgs,
+            description: dscrn
+        });
+
+        // Get the result
+        posting.done(function (data) {
+            $("#modalWindow-content").empty().append(data);
+        });
+        renderResponse('GET', '', '/task/selectTask');
     });
-}
- 
-function sendAjaxForm(result_form, ajax_form, url) {
-    $.ajax({
-        url:     url, //url страницы (action_ajax_form.php)
-        type:     "POST", //метод отправки
-        dataType: "html", //формат данных
-        data: $("#"+ajax_form).serialize(),  // Сеарилизуем объект
-        success: function(response) { //Данные отправлены успешно
-            alert(response);
-            //result = $.parseJSON(response);            
-            //$('#'+result_form).html(result);            
-            $('#modalWindow').toggle(350);
-            renderResponse('GET', '', '/task/selectTask');
-    	},
-    	error: function(response) { // Данные не отправлены
-            $('#'+result_form).html('Ошибка. Данные не отправлены.');
-    	}
-    });    
 }
 
 function renderItemInfo(requestType, JSONreq, requestUrl) {
@@ -61,15 +60,8 @@ function renderItemInfo(requestType, JSONreq, requestUrl) {
             //handle of error
             alert(req.status + ': ' + req.statusText);
         } else {
-            //var response = document.getElementById("restDetails");
-            //response.innerHTML = req.responseText;
-            //var div = $("<div id='restDetails' class='restDetails'></div>");
-            //$("#container body-content").append(div);
             $("#modalWindow").fadeToggle(350);
-            //$("#modalWindow").css("display:block");
             $("#modalWindow-content").html(req.responseText);
-            //$("#modalWindow-container").css("display:inline-block; vertical-align: middle");
-            //$("#modalWindow-container").toggle(350);
         }
     };
 }
@@ -89,22 +81,22 @@ function userInfo() {
 }
 
 function createChart() {
-    $(document).ready(function() {
+    $(document).ready(function () {
         var req = sendRequest('GET', '', '/chart/getUserEfficiencyChart');
-      req.onreadystatechange = function () {
-          if (req.readyState !== 4)
-              return;
-          if (req.status !== 200) {
-              //handle of error
-              alert(req.status + ': ' + req.statusText);
-          } else {
-  //      var response = document.getElementById("container body-content");
-  //      response.innerHTML = req.responseText;              
-              var us = JSON.parse(req.responseText);
-              console.log(us);
-              createPieChart("myChart", us.users, us.efficiency);
-          }
-      };    
+        req.onreadystatechange = function () {
+            if (req.readyState !== 4)
+                return;
+            if (req.status !== 200) {
+                //handle of error
+                alert(req.status + ': ' + req.statusText);
+            } else {
+                //      var response = document.getElementById("container body-content");
+                //      response.innerHTML = req.responseText;              
+                var us = JSON.parse(req.responseText);
+                console.log(us);
+                createPieChart("myChart", us.users, us.efficiency);
+            }
+        };
     });
 }
 

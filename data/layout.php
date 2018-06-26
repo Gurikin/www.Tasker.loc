@@ -43,6 +43,7 @@
                         <li><a onclick="renderResponse('GET', '', '/chart/showWeek'); createChart(); createGanttChart();">Графики</a></li>
                         <li><a onclick="renderResponse('GET', '', '/home/get/contact');">Поиск сотрудника</a></li>
                         <li><a onclick="renderResponse('GET', '', '/task/criticalTask');">Личные задачи</a></li>
+                        <!--<li><a onclick="renderItemInfo('GET', '', '/test/updateData');">TEST</a></li>-->
                     </ul>
                 </div>
             </div>

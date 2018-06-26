@@ -135,12 +135,11 @@ class TaskController extends DBConnect implements IController {
         
         
         $insResult = $this->_dbh->query($insQuery);
-        if ($insResult === false) {
-            
+        if ($insResult === false) {            
             throw new PDOException;
         }
         else {
-            echo "Задача добавлена успешно.";
+            echo "<h4>Задача добавлена успешно</h4><hr>";
             return;
         }
         

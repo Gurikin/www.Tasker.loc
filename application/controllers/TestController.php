@@ -133,8 +133,8 @@ class TestController extends DBConnect implements IController {
         }
     }
 
-    public function updateData() {
-        
+    public function updateDataAction() {
+        $this->_fc->setBody("<h1>Update</h1>");
     }
 
     //предполагается не удаление, а изменение видимости записей данных
