@@ -88,25 +88,28 @@ class UserController extends DBConnect implements IController {
      * @throws PDOException
      */
     public function addAction() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST))
     {    
         $firstName = $_POST['firstName'];
         $secondName = $_POST['secondName'];
         $middleName = $_POST['middleName'];
         $jobTitle = $_POST['jobTitle'];
-        $password = $_POST['password'];
+        $login = $_POST['login'];
+        $password = md5($_POST['password']);
         $phone = $_POST['phone'];    
     }
         $insQuery = "INSERT INTO user ( firstName, 
 					secondName, 
 					middleName, 
 					jobTitle,
+                                        login,
                                         password,
                                         phone) 
 					VALUES ('$firstName', 
                                                 '$secondName', 
                                                 '$middleName', 
                                                 '$jobTitle',
+                                                '$login',
                                                 '$password',
                                                 '$phone')";
         $insResult = $this->_dbh->query($insQuery);
@@ -114,13 +117,9 @@ class UserController extends DBConnect implements IController {
             throw new PDOException;
         }
         else {
-            
-        }
-        
-        //TODO переадресация должна производиться на tasker.loc + через AJAX должен выводиться список пользователей
-        header ("Location: /user/selectUser");
-        //$output = $this->_model->render(USER_ADD_FILE);
-        //$this->_fc->setBody($output);
+            echo "<h4>Новый сотрудник добавлен успешно</h4><hr>";
+            return;
+        }        
     }
     
     /**

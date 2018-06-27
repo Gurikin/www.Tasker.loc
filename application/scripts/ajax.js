@@ -20,7 +20,7 @@ function renderResponse(requestType, JSONreq, requestUrl) {
     };
 }
 
-function sendAjaxForm() {
+function sendAjaxForm_createTask() {
     $("#ajax-form").submit(function (event) {
         //Stop form from submitting normally
         event.preventDefault();
@@ -48,6 +48,41 @@ function sendAjaxForm() {
             $("#modalWindow-content").empty().append(data);
         });
         renderResponse('GET', '', '/task/selectTask');
+    });
+}
+
+function sendAjaxForm_createUser() {
+    $("#ajax-form").submit(function (event) {
+        //Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page
+        var $form = $(this),
+                fName = $form.find("input[name='firstName']").val(),
+                sName = $form.find("input[name='secondName']").val(),
+                mName = $form.find("input[name='middleName']").val(),
+                jTitle = $form.find("input[name='jobTitle']").val(),
+                lgn = $form.find("input[name='login']").val(),
+                pass = $form.find("input[name='password']").val(),
+                phn = $form.find("input[name='phone']").val(),
+                url = $form.attr("action");
+
+        //Send hte data using post
+        var posting = $.post(url, {
+            firstName: fName,
+            secondName: sName,
+            middleName: mName,
+            jobTitle: jTitle,
+            login: lgn,
+            password: pass,
+            phone: phn,
+        });
+
+        // Get the result
+        posting.done(function (data) {
+            $("#modalWindow-content").empty().append(data);
+        });
+        renderResponse('GET', '', '/user/selectUser');
     });
 }
 

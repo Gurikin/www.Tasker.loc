@@ -55,7 +55,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Добавить" onclick="sendAjaxForm();"/>
+                <input type="submit" value="Добавить" onclick="sendAjaxForm_createTask();"/>
             </div>
         </div>
     </div>

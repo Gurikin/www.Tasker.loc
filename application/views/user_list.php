@@ -1,6 +1,6 @@
 <h2>Рабочая группа</h2>
 <p>
-    <a href="./create">Добавить сотрудника</a>
+    <a onclick="renderItemInfo('GET', '', '/user/create')">Добавить сотрудника</a>
 </p>
 <table class="table">
     <tr>
