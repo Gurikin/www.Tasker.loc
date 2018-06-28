@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This controller manage the users
  *
@@ -32,7 +33,7 @@ class UserController extends DBConnect implements IController {
         parent::__construct();
         $this->_dbh = parent::getDbh();
     }
-    
+
     /**
      * @todo Выборка действующих либо уволившихся сотрудников
      * @param boolean $actUser - выбирать действующих или уволившихся сотрудников
@@ -55,7 +56,6 @@ class UserController extends DBConnect implements IController {
                 $tableView[$i] = $row;
                 $i++;
             }
-            
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }
@@ -70,34 +70,33 @@ class UserController extends DBConnect implements IController {
      * @throws PDOException
      */
     public function selectUserConstAction($userId) {
-      $query = "SELECT firstName, secondName, middleName, jobTitle, phone FROM " . $this->table . " WHERE id=$userId";// . $userId;
-      $resultSelect = $this->_dbh->query($query);
-      if ($resultSelect === false) {
-        throw new PDOException;
-      }
-      $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
-      $row['task'] = $this->_userTaskController->selectUserTasks($userId);
-      $tableView = $row;
-      $this->_model->userList = $row;
-      $output = $this->_model->render(USER_SINGLE_INFO);
-      $this->_fc->setBody($output);
+        $query = "SELECT firstName, secondName, middleName, jobTitle, phone FROM " . $this->table . " WHERE id=$userId"; // . $userId;
+        $resultSelect = $this->_dbh->query($query);
+        if ($resultSelect === false) {
+            throw new PDOException;
+        }
+        $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
+        $row['task'] = $this->_userTaskController->selectUserTasks($userId);
+        $tableView = $row;
+        $this->_model->userList = $row;
+        $output = $this->_model->render(USER_SINGLE_INFO);
+        $this->_fc->setBody($output);
     }
-      
+
     /**
      * @todo Этот метод добавляет нового пользователя в БД
      * @throws PDOException
      */
     public function addAction() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST))
-    {    
-        $firstName = $_POST['firstName'];
-        $secondName = $_POST['secondName'];
-        $middleName = $_POST['middleName'];
-        $jobTitle = $_POST['jobTitle'];
-        $login = $_POST['login'];
-        $password = md5($_POST['password']);
-        $phone = $_POST['phone'];    
-    }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
+            $firstName = $_POST['firstName'];
+            $secondName = $_POST['secondName'];
+            $middleName = $_POST['middleName'];
+            $jobTitle = $_POST['jobTitle'];
+            $login = $_POST['login'];
+            $password = md5($_POST['password']);
+            $phone = $_POST['phone'];
+        }
         $insQuery = "INSERT INTO user ( firstName, 
 					secondName, 
 					middleName, 
@@ -115,13 +114,12 @@ class UserController extends DBConnect implements IController {
         $insResult = $this->_dbh->query($insQuery);
         if ($insResult === false) {
             throw new PDOException;
-        }
-        else {
+        } else {
             echo "<h4>Новый сотрудник добавлен успешно</h4><hr>";
             return;
-        }        
+        }
     }
-    
+
     /**
      * @todo this method output the page for the add user to the DB
      */
@@ -136,8 +134,16 @@ class UserController extends DBConnect implements IController {
 
     //предполагается не удаление, а изменение видимости записей данных
     public function deleteAction($userId) {
-        
-        echo "Test. User with ID=$userId has deleted.";
+        $selectQuery = "SELECT firstName, secondName FROM " . $this->table . " WHERE id=$userId";
+        $delQuery = "DELETE FROM " . $this->table . " WHERE id=$userId";
+        $resultSelect = $this->_dbh->query($selectQuery);
+        $resultDelete = $this->_dbh->query($delQuery);
+        if ($resultSelect === false && $resultDelete === false) {
+            throw new PDOException;
+        } else {
+            $row = $resultSelect->fetch(PDO::FETCH_ASSOC);
+        }
+        echo "User ".$row['firstName']." ".$row['secondName']." has deleted.";
     }
 
 }

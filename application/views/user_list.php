@@ -47,7 +47,7 @@
             }
         }
         echo "<td style='align:center; wordwrap: break-word; white-space: nowrap;'>$userTasksCount</td>";
-        printf ("<td style='align:center;'><a onclick=\"renderItemInfo('GET', '', '/user/delete/id/%s')\" class='fas fa-times'></a></td>", $this->userList[$i]['user_id']);
+        printf ("<td style='align:center;'><a onclick=\"renderItemInfo('POST', '', '/user/delete/id/%s'); renderResponse('GET', '', '/user/selectUser');\" class='fas fa-times'></a></td>", $this->userList[$i]['user_id']);
         echo "</tr>";
     }
     ?>
