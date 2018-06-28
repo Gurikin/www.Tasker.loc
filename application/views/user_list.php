@@ -19,7 +19,7 @@
         <th>
             Назначенные задачи
         </th>
-        <th></th>
+        <th>CRUD</th>
     </tr>
 
     <?php
@@ -30,19 +30,24 @@
             if (!is_array($userField)) {// && $userCol != 'user_id') {
                 switch ($userCol) {
                     case 'user_id': break;
-                    case 'secondName':
+                    case 'secondName';
                         printf("<td><a onclick=\"renderItemInfo('GET', '', '/user/selectUserConst/id/%s')\">%s</a></td>", $this->userList[$i]['user_id'], $userField);
                         break;
-                    default:
+                    case 'firstName';
+                    case 'middleName';
+                    case 'jobTitle':
                         echo "<td>$userField</td>";
+                        break;
+                    default: //echo"<td align='center'><i class='fas fa-times'></i></td>";
                         break;
                 }
                 //echo "<td>$userField</td>";
             } else {
-                $userTasksCount = count($userField);
+                $userTasksCount = count($userField);                
             }
         }
-        echo "<td style='wordwrap: break-word; white-space: nowrap;'>$userTasksCount</td>";
+        echo "<td style='align:center; wordwrap: break-word; white-space: nowrap;'>$userTasksCount</td>";
+        printf ("<td style='align:center;'><a onclick=\"renderItemInfo('GET', '', '/user/delete/id/%s')\" class='fas fa-times'></a></td>", $this->userList[$i]['user_id']);
         echo "</tr>";
     }
     ?>

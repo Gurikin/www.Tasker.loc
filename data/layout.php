@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta charset="utf-8" />
@@ -7,6 +7,7 @@
 
         <title>Tasker</title>
         <link rel="stylesheet" type="text/css" href="/application/css/main.css" media="screen" />
+        
         
         <script src="/application/scripts/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="/application/scripts/FusionChart/fusioncharts.js"></script>
@@ -16,6 +17,7 @@
         <!--<script src="/application/scripts/jquery-1.10.2.js"></script>-->
         
         <script type="text/javascript" src="/application/scripts/bootstrap.js" async="async"></script>
+        
         <script src="/application/Scripts/respond.js"></script>
         <script src="/application/Scripts/ajax.js"></script>
         <script src="/application/Scripts/Chart.js"></script>

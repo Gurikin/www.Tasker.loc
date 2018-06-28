@@ -135,8 +135,9 @@ class UserController extends DBConnect implements IController {
     }
 
     //предполагается не удаление, а изменение видимости записей данных
-    public function deleteData() {
+    public function deleteAction($userId) {
         
+        echo "Test. User with ID=$userId has deleted.";
     }
 
 }

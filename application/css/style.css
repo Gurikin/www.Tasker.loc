@@ -267,3 +267,8 @@ form.signin input::-webkit-input-placeholder { color:#bbb; text-shadow:0 0 2px #
     font-size: 0.7em;
     color: #999 !important;
 }
+
+.fa-times {
+    color : #a9302a;
+    align-content: center;
+}

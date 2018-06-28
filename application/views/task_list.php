@@ -68,7 +68,7 @@
                         }
                     }
                     echo "</td>";
-                default: echo"<td></td>"; break;
+                default: echo"<td align='center' valign='middle'><i class='fas fa-times'></i></td>"; break;
             }
         }
         echo "</tr>";
